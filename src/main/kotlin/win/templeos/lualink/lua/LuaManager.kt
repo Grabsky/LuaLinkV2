@@ -4,8 +4,8 @@ import org.bukkit.Bukkit
 import org.bukkit.scheduler.BukkitRunnable
 import party.iroiro.luajava.JFunction
 import party.iroiro.luajava.Lua
-import party.iroiro.luajava.luajit.LuaJit
-import party.iroiro.luajava.luajit.LuaJitConsts
+import party.iroiro.luajava.lua54.Lua54
+import party.iroiro.luajava.lua54.Lua54Consts
 import party.iroiro.luajava.value.LuaValue
 import win.templeos.lualink.LuaLink
 import java.io.BufferedReader
@@ -17,7 +17,7 @@ import java.util.stream.Collectors
 
 class LuaManager(private val plugin: LuaLink) {
     // Create a new Lua state
-    private val lua: Lua = LuaJit()
+    private val lua: Lua = Lua54()
     private var scriptManagerTable: LuaValue? = null
 
     // Path to the Lua script in resources
@@ -131,7 +131,7 @@ class LuaManager(private val plugin: LuaLink) {
             val runnable: BukkitRunnable = object : BukkitRunnable() {
                 override fun run() {
                     // Get the Lua function from the registry using the reference
-                    it.rawGetI(LuaJitConsts.LUA_REGISTRYINDEX, ref)
+                    it.rawGetI(Lua54Consts.LUA_TFUNCTION, ref)
 
                     // Push this runnable as the first argument
                     it.pushJavaObject(this)
